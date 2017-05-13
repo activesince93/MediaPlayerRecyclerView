@@ -1,6 +1,7 @@
 package active.since93.recyclerview.audio;
 
 import android.content.Context;
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -103,7 +104,10 @@ public class AudioListAdapter extends RecyclerView.Adapter<AudioListAdapter.View
             btnPlay.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    final int position = getAdapterPosition();
+                    boolean ifRequest = mainActivity.requestPermissionIfNeeded();
+                    if(ifRequest) return;
+
+                    int position = getAdapterPosition();
 
                     // Check if any other audio is playing
                     if(mainActivity.audioStatusList.get(position).getAudioState()
@@ -115,7 +119,7 @@ public class AudioListAdapter extends RecyclerView.Adapter<AudioListAdapter.View
                     }
 
                     String audioPath = contactList.get(position);
-                    final AudioStatus audioStatus = mainActivity.audioStatusList.get(position);
+                    AudioStatus audioStatus = mainActivity.audioStatusList.get(position);
                     int currentAudioState = audioStatus.getAudioState();
 
                     if(currentAudioState == AudioStatus.AUDIO_STATE.PLAYING.ordinal()) {

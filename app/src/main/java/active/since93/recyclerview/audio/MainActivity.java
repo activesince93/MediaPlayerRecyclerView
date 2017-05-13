@@ -1,12 +1,17 @@
 package active.since93.recyclerview.audio;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import java.security.Permissions;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +27,8 @@ public class MainActivity extends AppCompatActivity implements MediaPlayerUtils.
 
     @BindView(R.id.recyclerViewContactsList)
     RecyclerView recyclerView;
+
+    private static final int RC_PERMISSION = 1001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +65,23 @@ public class MainActivity extends AppCompatActivity implements MediaPlayerUtils.
             audioStatusList.add(new AudioStatus(AudioStatus.AUDIO_STATE.IDLE.ordinal(), 0));
         }
         setRecyclerViewAdapter(contactList);
+
+        requestPermissionIfNeeded();
     }
 
     private void setRecyclerViewAdapter(List<String> contactList) {
         AudioListAdapter adapter = new AudioListAdapter(context, contactList);
         recyclerView.setAdapter(adapter);
+    }
+
+    public boolean requestPermissionIfNeeded() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if(checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, RC_PERMISSION);
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -123,5 +142,10 @@ public class MainActivity extends AppCompatActivity implements MediaPlayerUtils.
         if (state != null) {
             recyclerView.getLayoutManager().onRestoreInstanceState(state);
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }
