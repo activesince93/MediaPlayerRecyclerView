@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import active.since93.test.purpledocs.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -23,13 +22,13 @@ import butterknife.ButterKnife;
  * @author Darshan Parikh (parikhdarshan36@gmail.com)
  */
 
-public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHolder> {
+public class AudioListAdapter extends RecyclerView.Adapter<AudioListAdapter.ViewHolder> {
 
     private Context context;
     private List<String> contactList = new ArrayList<>();
     private MainActivity mainActivity;
 
-    public ContactsAdapter(Context context, List<String> contactList) {
+    public AudioListAdapter(Context context, List<String> contactList) {
         this.context = context;
         this.contactList = contactList;
         this.mainActivity = (MainActivity) context;

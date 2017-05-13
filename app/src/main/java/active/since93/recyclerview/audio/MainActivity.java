@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import active.since93.test.purpledocs.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -60,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements MediaPlayerUtils.
     }
 
     private void setRecyclerViewAdapter(List<String> contactList) {
-        ContactsAdapter adapter = new ContactsAdapter(context, contactList);
+        AudioListAdapter adapter = new AudioListAdapter(context, contactList);
         recyclerView.setAdapter(adapter);
     }
 
@@ -109,8 +108,8 @@ public class MainActivity extends AppCompatActivity implements MediaPlayerUtils.
         }
 
         if(playingAudioPosition != -1) {
-            ContactsAdapter.ViewHolder holder
-                    = (ContactsAdapter.ViewHolder) recyclerView.findViewHolderForAdapterPosition(playingAudioPosition);
+            AudioListAdapter.ViewHolder holder
+                    = (AudioListAdapter.ViewHolder) recyclerView.findViewHolderForAdapterPosition(playingAudioPosition);
             if (holder != null) {
                 holder.seekBarAudio.setProgress(currentPosition);
             }
