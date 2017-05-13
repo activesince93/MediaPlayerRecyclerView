@@ -49,12 +49,12 @@ public class MediaPlayerUtils {
 
     public static void playMediaPlayer() {
         mediaPlayer.start();
-        mHandler.postDelayed(onEverySecond, 100);
+        mHandler.postDelayed(mRunnable, 100);
     }
 
     public static void applySeekBarValue(int selectedValue) {
         mediaPlayer.seekTo(selectedValue);
-        mHandler.postDelayed(onEverySecond, 100);
+        mHandler.postDelayed(mRunnable, 100);
     }
 
     /**
@@ -74,7 +74,7 @@ public class MediaPlayerUtils {
         mediaPlayer.prepare();
         mediaPlayer.setOnCompletionListener(onCompletionListener);
 
-        mHandler.postDelayed(onEverySecond, 100);
+        mHandler.postDelayed(mRunnable, 100);
         playMediaPlayer();
     }
 
@@ -94,12 +94,12 @@ public class MediaPlayerUtils {
         }
     };
 
-    private static Runnable onEverySecond = new Runnable() {
+    private static Runnable mRunnable = new Runnable() {
         @Override
         public void run() {
             try {
                 if (isPlaying()) {
-                    mHandler.postDelayed(onEverySecond, 100);
+                    mHandler.postDelayed(mRunnable, 100);
                     listener.onAudioUpdate(mediaPlayer.getCurrentPosition());
                 }
             } catch (Exception e) {
