@@ -66,23 +66,6 @@ public class MainActivity extends AppCompatActivity implements MediaPlayerUtils.
     }
 
     @Override
-    public void onAudioComplete() {
-        // Store its state
-        state = recyclerView.getLayoutManager().onSaveInstanceState();
-
-        audioStatusList.clear();
-        for(int i = 0; i < contactList.size(); i++) {
-            audioStatusList.add(new AudioStatus(AudioStatus.AUDIO_STATE.IDLE.ordinal(), 0));
-        }
-        setRecyclerViewAdapter(contactList);
-
-        // Main position of RecyclerView when loaded again
-        if (state != null) {
-            recyclerView.getLayoutManager().onRestoreInstanceState(state);
-        }
-    }
-
-    @Override
     protected void onPause() {
         super.onPause();
         // Store its state
@@ -96,6 +79,13 @@ public class MainActivity extends AppCompatActivity implements MediaPlayerUtils.
         if (state != null) {
             recyclerView.getLayoutManager().onRestoreInstanceState(state);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        MediaPlayerUtils.releaseMediaPlayer();
     }
 
     @Override
@@ -119,9 +109,19 @@ public class MainActivity extends AppCompatActivity implements MediaPlayerUtils.
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    public void onAudioComplete() {
+        // Store its state
+        state = recyclerView.getLayoutManager().onSaveInstanceState();
 
-        MediaPlayerUtils.releaseMediaPlayer();
+        audioStatusList.clear();
+        for(int i = 0; i < contactList.size(); i++) {
+            audioStatusList.add(new AudioStatus(AudioStatus.AUDIO_STATE.IDLE.ordinal(), 0));
+        }
+        setRecyclerViewAdapter(contactList);
+
+        // Main position of RecyclerView when loaded again
+        if (state != null) {
+            recyclerView.getLayoutManager().onRestoreInstanceState(state);
+        }
     }
 }

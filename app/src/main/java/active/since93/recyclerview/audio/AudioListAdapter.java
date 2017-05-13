@@ -105,8 +105,11 @@ public class AudioListAdapter extends RecyclerView.Adapter<AudioListAdapter.View
                 public void onClick(View view) {
                     final int position = getAdapterPosition();
 
+                    // Check if any other audio is playing
                     if(mainActivity.audioStatusList.get(position).getAudioState()
                             == AudioStatus.AUDIO_STATE.IDLE.ordinal()) {
+
+                        // Reset media player
                         MediaPlayerUtils.Listener listener = (MediaPlayerUtils.Listener) context;
                         listener.onAudioComplete();
                     }
@@ -116,18 +119,21 @@ public class AudioListAdapter extends RecyclerView.Adapter<AudioListAdapter.View
                     int currentAudioState = audioStatus.getAudioState();
 
                     if(currentAudioState == AudioStatus.AUDIO_STATE.PLAYING.ordinal()) {
+                        // If mediaPlayer is playing, pause mediaPlayer
                         btnPlay.setText(context.getString(R.string.play));
                         MediaPlayerUtils.pauseMediaPlayer();
 
                         audioStatus.setAudioState(AudioStatus.AUDIO_STATE.PAUSED.ordinal());
                         mainActivity.audioStatusList.set(position, audioStatus);
                     } else if(currentAudioState == AudioStatus.AUDIO_STATE.PAUSED.ordinal()) {
+                        // If mediaPlayer is paused, play mediaPlayer
                         btnPlay.setText(context.getString(R.string.pause));
                         MediaPlayerUtils.playMediaPlayer();
 
                         audioStatus.setAudioState(AudioStatus.AUDIO_STATE.PLAYING.ordinal());
                         mainActivity.audioStatusList.set(position, audioStatus);
                     } else {
+                        // If mediaPlayer is in idle state, start and play mediaPlayer
                         btnPlay.setText(context.getString(R.string.pause));
 
                         audioStatus.setAudioState(AudioStatus.AUDIO_STATE.PLAYING.ordinal());
