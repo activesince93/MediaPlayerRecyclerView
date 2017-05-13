@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements MediaPlayerUtils.
         context = MainActivity.this;
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        // TODO replace below audio paths with respective SD Card location
         contactList.add("/storage/emulated/0/Download/A Sky Full Of Stars - Coldplay - [SongsPk.CC].mp3");
         contactList.add("/storage/emulated/0/Download/Coldplay - The Scientist.mp3");
         contactList.add("/storage/emulated/0/Android/data/com.android.email/files/Ringtones/EmailIncoming.ogg");
