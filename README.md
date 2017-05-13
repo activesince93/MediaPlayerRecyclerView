@@ -9,12 +9,12 @@ Demo on how to maintain MediaPlayer and SeekBar in RecyclerView.
 
 - Idle state
 
-![IDLE](https://github.com/activesince93/RecyclerViewMeidaPlayer/blob/master/screens/idle.png)
+![IDLE](https://github.com/activesince93/MediaPlayerRecyclerView/blob/master/screens/idle.png)
 
 - Playing state
 
-![PLAYING](https://github.com/activesince93/RecyclerViewMeidaPlayer/blob/master/screens/playing.png)
+![PLAYING](https://github.com/activesince93/MediaPlayerRecyclerView/blob/master/screens/playing.png)
 
 - Paused state
 
-![PAUSED](https://github.com/activesince93/RecyclerViewMeidaPlayer/blob/master/screens/paused.png)
+![PAUSED](https://github.com/activesince93/MediaPlayerRecyclerView/blob/master/screens/paused.png)
